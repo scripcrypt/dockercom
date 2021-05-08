@@ -1,0 +1,181 @@
+#!/usr/bin/php
+<?php
+
+$argv[1]=$argv[1]??null;
+$argv[2]=$argv[2]??null;
+
+echo "\n";
+switch($argv[1]){
+	case 'help':
+		echo <<<EOF
+
+		Usage:	dockercom [ACTIONS] TARGET
+
+		ACTIONS:
+		  process     show running docker process list. [ailias] proc,ps
+		  images      show docker container images.
+		  show        show process and container images.
+		  stop        stop docker container process.
+		  remove      stop docker images and or docker object.
+		              TARGET:
+		                images        remove docker container images.
+		                object        remove docker container object.
+		                all or none   remove both container images and container object.
+
+		Run 'dockercom help' for this.
+
+		docker command usages...
+		     run docker process      docker compose up -d  [docker-compose up -d --build]
+		     show docker process     docker ps
+		     login docker container  docker exec -it docker_web_1 bash
+		     stop docker process     docker stop 08787c23235f cf5a85818448
+		     show docker images      docker images
+		     remove docker images    docker image rm -f 727a67ae4d69 a30d898a3704
+		     remove docker objects   docker system prune -a
+
+		EOF;
+		break;
+	case 'process':
+	case 'proc':
+	case 'ps':
+		show_docker_process();
+		break;
+	case 'images':
+	case 'image':
+		show_docker_images();
+		break;
+	case 'show':
+		show_docker_process();
+    show_docker_images();
+		break;
+	case 'stop':
+		stop_docker_process(show_docker_process());
+		break;
+	case 'remove':
+		switch($argv[2]){
+			case 'proccess':
+			case 'proc':
+			case 'ps':
+        stop_docker_process(show_docker_process());
+				break;
+			case 'image':
+        remove_docker_images(show_docker_images());
+				break;
+			case 'object':
+        remove_docker_objects();
+				break;
+			case 'all':
+      default:
+        stop_docker_process(show_docker_process());
+        remove_docker_images(show_docker_images());
+        remove_docker_objects();
+				break;
+		}
+		break;
+	case '':
+	default:
+		echo "\nSee 'dockercom help'\n\n";
+		break;
+}
+
+
+
+function show_docker_process(){
+	exec('docker ps',$ps);
+	if(count($ps)>1){
+		echo "\$ docker ps\n";
+    echo $ps[0]."\n";
+    $psIDs=[];
+		for($i=1,$ci=count($ps);$i<$ci;$i++){
+      echo $ps[$i]."\n";
+			$line=trim($ps[$i]);
+			$pss=preg_split("#\s+#",$line);
+			$psIDs[]=$pss[0];
+		}
+    echo "\n";
+    return $psIDs;
+	}
+}
+
+function show_docker_images(){
+	exec('docker images',$images);
+	if(count($images)>1){
+    echo "\$ docker images\n";
+    echo $images[0]."\n";
+    $imageIDs=[];
+		for($i=1,$ci=count($images);$i<$ci;$i++){
+      echo $images[$i]."\n";
+			$line=trim($images[$i]);
+			$imgs=preg_split("#\s+#",$line);
+			$imageIDs[]=$imgs[2];
+		}
+    echo "\n";
+    return $imageIDs;
+	}
+}
+
+function stop_docker_process($psIDs){
+  $command='docker stop '.implode(' ',$psIDs);
+  echo "\$ ".$command."\n";
+  passthru($command);
+	echo "\n";
+}
+
+function remove_docker_images($imageIDs){
+  $command='docker image rm -f '.implode(' ',$imageIDs);
+  passthru($command);
+	echo "\n";
+}
+
+function remove_docker_objects(){
+  $command='docker system prune -a';
+  passthru($command);
+	echo "\n";
+}
+
+exit;
+
+/*------------------------------------------------------
+	STOP PROCESS
+------------------------------------------------------*/
+	exec('docker ps',$ps);
+	if(count($ps)>1){
+		echo "■■■ STOP PROCESS ■■■\n";
+		for($i=1,$ci=count($ps);$i<$ci;$i++){
+			$line=trim($ps[$i]);
+			$pss=preg_split("#\s+#",$line);
+			$psIDs[]=$pss[0];
+		}
+		$command='docker stop '.implode(' ',$psIDs);
+		exec($command,$psResult);
+		echo (count($psResult)>0 ? 'Success':'Fail')."\n";
+	}
+	echo "\n";
+
+/*------------------------------------------------------
+	DELETE IMAGES
+------------------------------------------------------*/
+	exec('docker images',$images);
+	if(count($images)>1){
+		echo "■■■ DELETE IMAGES ■■■\n";
+		for($i=1,$ci=count($images);$i<$ci;$i++){
+			$line=trim($images[$i]);
+			$imgs=preg_split("#\s+#",$line);
+			$imageIDs[]=$imgs[2];
+		}
+		$command='docker image rm -f '.implode(' ',$imageIDs);
+		exec($command,$imageResult);
+		echo (count($imageResult)>0 ? 'Success':'Fail')."\n";
+	}
+	echo "\n";
+
+/*------------------------------------------------------
+	PRUNE
+------------------------------------------------------*/
+	echo "■■■ PRUNE ■■■\n";
+	$command='docker system prune -a -f';
+	exec($command,$pruneResult);
+	echo (count($pruneResult)>0 ? 'Success':'Fail')."\n\n";
+
+
+
