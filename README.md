@@ -1,5 +1,5 @@
 Stops all processes in the docker container, deletes all images, and deletes all objects.<br>
-A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'dockre compose' from scratch.<br>
+A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'dockre compose'　from scratch.<br>
 This script doesn't do much at all.<br>
 The main usage is as follows.<br><br>
 
