@@ -1,5 +1,5 @@
 Stops all processes in the docker container, deletes all images, and deletes all objects.<br>
-A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'dockre compose'　from scratch.<br>
+A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'docker compose'　from scratch.<br>
 straightforwardly this script doesn't do much at all.<br><br>
 
 This script uses PHP, so it is assumed that PHP is included in your environment.<br>
