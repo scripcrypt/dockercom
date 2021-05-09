@@ -1,33 +1,39 @@
 Stops all processes in the docker container, deletes all images, and deletes all objects.<br>
 A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'dockre compose'　from scratch.<br>
-This script doesn't do much at all.<br>
+straightforwardly this script doesn't do much at all.<br><br>
+
+This script uses PHP, so it is assumed that PHP is included in your environment.<br>
+Make sure the PHP path on the first line of this script matches your environment.<br>
+You can check if PHP is included in your environment and what the path is with the following command.<br><br>
+
+xxx$ <b>which php</b><br>
+xxx$ /bin/php
+
+You see '#!/usr/bin/php' on first line.<br>
+Replace the path on this first line with the path shown in'which php'.<br><br>
+
 The main usage is as follows.<br><br>
 
 [all processes in the docker container, deletes all images]<br>
-xxx$ dockercom remove<br><br>
+xxx$ <b>dockercom remove</b><br><br>
 
 [Show all running docker processes instead of "docker ps"]<br>
-xxx$ dockercom process<br>
+xxx$ <b>dockercom process</b><br>
 ...'process' can be 'proc','ps'<br><br>
 
 [Show all running docker container images instead of "docker images"]<br>
-xxx$ dockercom images<br><br>
+xxx$ <b>dockercom images</b><br><br>
 
 [Show all running docker processes and docker container instead of "docker ps" and "docker images"]<br>
-xxx$ dockercom show<br><br>
+xxx$ <b>dockercom show</b><br><br>
 
 [Stop all running docker processes instead of "docker stop 08787c23235f cf5a85818448 727a67ae4d69 a30d898a3704"]<br>
-xxx$ dockercom stop<br><br>
+xxx$ <b>dockercom stop</b><br><br>
 
 [Stop all running docker processes,remove all container images,and all docker images]<br>
-xxx$ dockercom remove<br><br>
+xxx$ <b>dockercom remove</b><br><br>
 
-You can also use this script and commands to stop or delete the docker container without using this script.<br>
-'dockercom help'<br>
-I made it so that you can see it at.<br><br>
-
-'dockercom help'<br>
-The displayed contents of are as follows.<br>
+I tried to display how to use and simple usage of <b>docker</b> command with 'dockercom help'.<br><br>
 <pre>Usage:	dockercom [ACTIONS] TARGET<br>
   ACTIONS:
     process     show running docker process list. [ailias] proc,ps
