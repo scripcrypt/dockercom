@@ -1,5 +1,5 @@
 Stops all processes in the docker container, deletes all images, and deletes all objects.<br>
-A script that prepares you to stop the all docker container, delete the image, delete the object and start over　'docker compose'　from scratch.<br>
+A script that prepares you to stop the all docker container, delete the image, delete the object and start over　"docker compose"　from scratch.<br>
 straightforwardly this script doesn't do much at all.<br><br>
 
 This script uses PHP, so it is assumed that PHP is included in your environment.<br>
@@ -9,8 +9,8 @@ You can check if PHP is included in your environment and what the path is with t
 xxx$ <b>which php</b><br>
 xxx$ /bin/php
 
-You see '#!/usr/bin/php' on first line.<br>
-Replace the path on this first line with the path shown in'which php'.<br><br>
+You see "#!/usr/bin/php" on first line.<br>
+Replace the path on this first line with the path shown in "which php".<br><br>
 
 The main usage is as follows.<br><br>
 
@@ -46,7 +46,7 @@ I tried to display how to use and simple usage of <b>docker</b> command with 'do
                   object        remove docker container object.
                   all or none   remove both container images and container object.
 
-  Run 'dockercom help' for this.
+  Run "dockercom help" for this.
 
   docker command usages...
        run docker process      docker compose up -d  [docker-compose up -d --build]
